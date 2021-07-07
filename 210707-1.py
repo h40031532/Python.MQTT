@@ -7,6 +7,7 @@ import sys
 r = redis.StrictRedis(host = '127.0.0.1', port = 6379, decode_responses = True)
 
 ##MQTT Connection
+
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected to mqtt server"+str(rc))
@@ -25,12 +26,18 @@ def on_message(client, userdata, msg):
     r.set(key, message)
     print(r.get(key)) # here you should get message value which you receive in mqtt
 
+def on_publish(topic, payload):
+    Client.publish(topic, payload)
+
 def main():
-    int('method1:var')
-    arg1 = sys.argv[1]
-    print(arg1)
     on_connect()
-    on_message()
+    on_publish("test2", "Hello Python!")
+    on_subscribe()
+    while True:
+        pass
+
+if __name__ == '__main__':
+    main()
 
 #connection setting
 client = mqtt.Client()
