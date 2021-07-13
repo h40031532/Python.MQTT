@@ -26,8 +26,8 @@ def on_message(client, userdata, msg):
     r.set(key, message)
     print(r.get(key)) # here you should get message value which you receive in mqtt
 
-def on_publish(topic, payload):
-    Client.publish(topic, payload)
+def on_publish(client, userdata, mid):
+    print("mid: "+str(mid))
 
 def main():
     on_connect()
@@ -43,6 +43,7 @@ if __name__ == '__main__':
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
+client.on_publish = on_publish
 
 #set connection info
 client.connect("120.126.16.88", 1883)
