@@ -31,7 +31,7 @@ def on_publish(client, userdata, mid):
 
 def main():
     on_connect()
-    on_publish("test2", "Hello Python!",mid)
+    on_publish("test2", "Hello Python!")
     while True:
         pass
 
