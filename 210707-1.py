@@ -29,15 +29,6 @@ def on_message(client, userdata, msg):
 def on_publish(client, userdata, mid):
     print("mid: "+str(mid))
 
-def main():
-    on_connect()
-    on_publish("test2", "Hello Python!")
-    while True:
-        pass
-
-if __name__ == '__main__':
-    main()
-
 #connection setting
 client = mqtt.Client()
 client.on_connect = on_connect
