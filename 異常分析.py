@@ -5,8 +5,14 @@ import sys
 import pymongo
 
 client = pymongo.MongoClient('120.126.18.132', 27017)
-db = client.test
-collection = db.mydatas
+db = client["testMongoDB"]
+db1st = client.list_database_names()
+if "testMongoDB" in db1st:
+    print("testMongoDB已存在")
+col = db["testMongoCol"]
+collst = db.list_collection_names()
+if "testMongoCol" in collst:
+    print("testMongoCol已存在")
 
 ##MQTT Connection
 
@@ -26,7 +32,8 @@ def on_message(client, userdata, msg):
     receiveTime = datetime.datetime.now()
     
     mydata = {'receiveTime' : receiveTime, 'value' : message}
-    testData = collection.insert_one(mydata)
+    testData = col.insert_one(mydata)
+    testData = col.find_one()
     print(mydata)
     client.loop_stop()
     
