@@ -23,7 +23,7 @@ def on_message(client, userdata, msg):
     
     receiveTime = datetime.datetime.now()
     
-    mydata = {'receiveTime' : receiveTime, 'value' : message}
+    mydata = {'receiveTime' : datetime, 'value' : message}
     mongo_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
     mydb = mongo_client["testMongoDB"]
     db1st = mongo_client.list_database_names()
