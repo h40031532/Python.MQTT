@@ -45,6 +45,8 @@ client.on_publish = on_publish
 client.connect("120.126.18.132", 1883)
 client.loop_forever()
 
+
+#Anomaly Detection
 import numpy as np
 import pandas as pd
 import seaborn as sns
