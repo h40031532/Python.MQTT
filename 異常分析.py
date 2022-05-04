@@ -4,7 +4,7 @@ import datetime
 import sys
 import pymongo
 
-client = pymongo.MongoClient('120.126.18.132', 27017)
+client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client["testMongoDB"]
 db1st = client.list_database_names()
 if "testMongoDB" in db1st:
