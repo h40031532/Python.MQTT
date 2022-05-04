@@ -30,7 +30,7 @@ def on_message(client, userdata, msg):
     if "testMongoDB" in db1st:
        print("testMongoDB已存在")
     col = mydb["testMongoCol"]
-    collst = db.list_collection_names()
+    collst = mydb.list_collection_names()
     if "testMongoCol" in collst:
        print("testMongoCol已存在")
        testData = col.insert_one(mydata)
