@@ -4,7 +4,7 @@ import datetime
 import sys
 import pymongo
 
-client = pymongo.MongoClient('120.126.18.104', 27017)
+client = pymongo.MongoClient('120.126.18.132', 27017)
 db = client.test
 collection = db.mydatas
 
@@ -28,6 +28,7 @@ def on_message(client, userdata, msg):
     mydata = {'receiveTime' : receiveTime, 'value' : message}
     testData = collection.insert_one(mydata)
     print(mydata)
+    client.loop_stop()
     
 
 def on_publish(client, userdata, mid):
@@ -41,7 +42,7 @@ client.on_message = on_message
 client.on_publish = on_publish
 
 #set connection info
-client.connect("127.0.0.1", 1883)
+client.connect("120.126.18.132", 1883)
 client.loop_forever()
 
 import numpy as np
