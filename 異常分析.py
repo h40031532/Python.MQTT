@@ -24,7 +24,7 @@ def on_message(client, userdata, msg):
     receiveTime = datetime.datetime.now()
     
     mydata = {'receiveTime' : receiveTime, 'value' : message}
-    mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
+    mongo_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
     db = mongo_client["testMongoDB"]
     db1st = mongo_client.list_database_names()
     if "testMongoDB" in db1st:
