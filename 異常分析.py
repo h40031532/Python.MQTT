@@ -20,10 +20,8 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     
     message = msg.payload.decode('utf-8')
-    
     receiveTime = datetime.datetime.now()
     
-    mydata = {'receiveTime' : datetime, 'value' : message}
     mongo_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
     mydb = mongo_client["testMongoDB"]
     db1st = mongo_client.list_database_names()
@@ -33,9 +31,9 @@ def on_message(client, userdata, msg):
     collst = mydb.list_collection_names()
     if "testMongoCol" in collst:
        print("testMongoCol已存在")
-       testData = col.insert_one(mydata)
-       testData = col.find_one()
-    print(mydata)
+    mydata = {'receiveTime' : receiveTime, 'value' : message}
+    testData = col.insert_one(mydata)
+    print(testData)
     
     
 
