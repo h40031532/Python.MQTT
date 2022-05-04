@@ -25,14 +25,12 @@ def on_message(client, userdata, msg):
     mongo_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
     mydb = mongo_client["testMongoDB"]
     db1st = mongo_client.list_database_names()
-    if "testMongoDB" in db1st:
-       print("testMongoDB已存在")
-    col = mydb["testMongoCol"]
+    
+    mycol = mydb["testMongoCol"]
     collst = mydb.list_collection_names()
-    if "testMongoCol" in collst:
-       print("testMongoCol已存在")
+    
     mydata = {'receiveTime' : receiveTime, 'value' : message}
-    testData = col.insert_one(mydata)
+    testData = mycol.insert_one(mydata)
     print(testData)
     
     
