@@ -4,15 +4,7 @@ import datetime
 import sys
 import pymongo
 
-client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client["testMongoDB"]
-db1st = client.list_database_names()
-if "testMongoDB" in db1st:
-    print("testMongoDB已存在")
-col = db["testMongoCol"]
-collst = db.list_collection_names()
-if "testMongoCol" in collst:
-    print("testMongoCol已存在")
+
 
 ##MQTT Connection
 
@@ -32,10 +24,19 @@ def on_message(client, userdata, msg):
     receiveTime = datetime.datetime.now()
     
     mydata = {'receiveTime' : receiveTime, 'value' : message}
-    testData = col.insert_one(mydata)
-    testData = col.find_one()
+    mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
+    db = mongo_client["testMongoDB"]
+    db1st = mongo_client.list_database_names()
+    if "testMongoDB" in db1st:
+       print("testMongoDB已存在")
+    col = db["testMongoCol"]
+    collst = db.list_collection_names()
+    if "testMongoCol" in collst:
+       print("testMongoCol已存在")
+       testData = col.insert_one(mydata)
+       testData = col.find_one()
     print(mydata)
-    client.loop_stop()
+    
     
 
 def on_publish(client, userdata, mid):
