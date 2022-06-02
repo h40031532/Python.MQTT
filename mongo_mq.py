@@ -21,7 +21,7 @@ def on_message(client, userdata, msg):
     
     message = msg.payload.decode('utf-8')
     receiveTime = str(datetime.datetime.now())
-    mydata = {"receiveTime" : receiveTime, "value" : message}
+    mydata = {'receiveTime' : receiveTime, 'value' : message}
     print(mydata)
     
     mongo_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
