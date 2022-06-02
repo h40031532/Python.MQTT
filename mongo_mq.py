@@ -19,7 +19,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     
-    message = msg.payload.decode('utf-8')
+    message = str(msg.payload.decode('utf-8'))
     receiveTime = str(datetime.datetime.now())
     mydata = {'receiveTime' : receiveTime, 'value' : message}
     print(mydata)
