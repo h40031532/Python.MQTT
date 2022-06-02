@@ -56,7 +56,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.ensemble import IsolationForest
-df_dict = json.loads(r.get(key))
+df_dict = json.loads(mydata)
 #df_train = pd.DataFrame(list(df_dict), columns=['batteryPercentage'])
 df_train = pd.DataFrame.from_dict(df_dict)
 df_train.info()
