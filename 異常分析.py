@@ -68,7 +68,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.ensemble import IsolationForest
-df_dict = json.loads(mydata)
+df_dict = json.loads(mycol)
 
 #df_train = pd.DataFrame(list(df_dict), columns=['BatteryLevel',"RSSI","Mem"])
 df_train = pd.DataFrame.from_dict(df_dict)
