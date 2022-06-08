@@ -22,12 +22,16 @@ def on_message(client, userdata, msg):
     
     message = str(msg.payload.decode('utf-8'))
     dic=eval(message)
+    
     receiveTime = str(datetime.datetime.now())
+    
     df2=pd.DataFrame()
     test_df=df2.append(dic,ignore_index=True)
     test_df.insert(0,column="ReceiveTime",value=receiveTime)
+    
     mydata = {'receiveTime' : receiveTime, 'value' : message}
     print(mydata)
+    
     print(test_df)
    
     
