@@ -29,7 +29,7 @@ def on_message(client, userdata, msg):
     test_df=df2.append(dic,ignore_index=True)
     test_df.insert(0,column="ReceiveTime",value=receiveTime)
     
-    mydata = {'receiveTime' : receiveTime, 'value' : message}
+    mydata = {'receiveTime' : receiveTime, 'value' : dic}
     print(mydata)
     
     print(test_df)
