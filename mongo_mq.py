@@ -3,7 +3,8 @@ import json, time
 import datetime
 import sys
 import pymongo
-
+import pandas as pd
+import numpy as np
 
 
 ##MQTT Connection
@@ -20,19 +21,24 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     
     message = str(msg.payload.decode('utf-8'))
+    dic=eval(message)
     receiveTime = str(datetime.datetime.now())
+    df2=pd.DataFrame()
+    test_df=df2.append(dic,ignore_index=True)
+    test_df.insert(0,column="ReceiveTime",value=receiveTime)
     mydata = {'receiveTime' : receiveTime, 'value' : message}
     print(mydata)
+    print(test_df)
+   
     
     mongo_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
-    mydb = mongo_client["testMongoDB"]
+    db = mongo_client["testMongoDB"]
     db1st = mongo_client.list_database_names()
     
-    mycol = mydb["testMongoCol"]
-    collst = mydb.list_collection_names()
+    mycol = db["testMongoCol"]
+    collst = db.list_collection_names()
     
-    #mydata = {'receiveTime' : receiveTime, 'value' : message}
-    testData = mycol.insert_one(mydata)
+    testData = mycol.insert_one(dic)
     print(testData)
 
 
