@@ -96,7 +96,7 @@ def sleeptime(hour,min,sec):
 
 second = sleeptime(0,0,10)
 i = 0
-while i < 36:
+while i < 360:
     time.sleep(second)
     i+=1
     #Increase score
