@@ -85,7 +85,7 @@ model.fit(df_train[['BatteryLevel',"RSSI","Mem"]])
 print(model.get_params())
 
 #df_test
-df_dict2 = json.loads(mydata)
+df_dict2 = json.loads(dic)
 df_test = pd.DataFrame.from_dict(df_dict2)
 
 #time
