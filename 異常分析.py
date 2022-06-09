@@ -29,7 +29,7 @@ def on_message(client, userdata, msg):
     
     receiveTime = str(datetime.datetime.now())
     
-    df2=pd.DataFrame()
+    df2=pd.DataFrame(["SN","Time","MAC","SSID","IP","RSSI","BatteryLevel","isCharging","Mem"])
     df_train=df2.append(dic,ignore_index=True)
     df_train.insert(0,column="ReceiveTime",value=receiveTime)
     print(df_train)
