@@ -5,6 +5,7 @@ import sys
 import pymongo
 import pandas as pd
 import numpy as np
+from pymongo import MongoClient
 
 import seaborn as sns
 from sklearn.ensemble import IsolationForest
@@ -44,6 +45,8 @@ def on_message(client, userdata, msg):
     mycol = db["testMongoCol"]
     collst = db.list_collection_names()
     
+    df_train = pd.DataFrame(list(mycol.find()))
+    
     testData = mycol.insert_one(dic)
     print(testData)
 
@@ -69,7 +72,7 @@ client.on_publish = on_publish
 #from sklearn.ensemble import IsolationForest
 #df_dict = json.loads(mycol)
 
-df_train = pd.DataFrame(list(mycol.find()))
+#df_train = pd.DataFrame(list(mycol.find()))
 #df_train = pd.DataFrame(list(df_dict), columns=['BatteryLevel',"RSSI","Mem"])
 #df_train = pd.DataFrame.from_dict(df_dict)
 #df_train.info()
