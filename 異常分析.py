@@ -47,23 +47,7 @@ def on_message(client, userdata, msg):
     
     df_train = pd.DataFrame(list(mycol.find()))
     
-    testData = mycol.insert_one(dic)
-    print(testData)
-
-
-def on_publish(client, userdata, mid):
-    print("mid: "+str(mid))
-
-
-#connection setting
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
-client.on_publish = on_publish
-
-
-
-
+    
 ##Anomaly Detection
 
 #import numpy as np
@@ -82,41 +66,41 @@ client.on_publish = on_publish
 #sns.boxplot(df_train['BatteryLevel'])
 
 #training model
-random_state = np.random.RandomState(42)
-model=IsolationForest(n_estimators=100,max_samples='auto',contamination=float(0.2),random_state=random_state)
-model.fit(df_train[['BatteryLevel',"RSSI","Mem"]])
-print(model.get_params())
+    random_state = np.random.RandomState(42)
+    model=IsolationForest(n_estimators=100,max_samples='auto',contamination=float(0.2),random_state=random_state)
+    model.fit(df_train[['BatteryLevel',"RSSI","Mem"]])
+    print(model.get_params())
 
 #Train increase score + Anomaly data
 #for i in range(0,49):
 #    df_train.loc[i,'BatteryLevel']=200
-df_train['scores'] = model.decision_function(df_train[['BatteryLevel',"RSSI","Mem"]])
-df_train['anomaly_score'] = model.predict(df_train[['BatteryLevel',"RSSI","Mem"]])
+    df_train['scores'] = model.decision_function(df_train[['BatteryLevel',"RSSI","Mem"]])
+    df_train['anomaly_score'] = model.predict(df_train[['BatteryLevel',"RSSI","Mem"]])
 #df_test[df_train['anomaly_score']==-1].head(50)
 
 #TrainResult
-count = df_train.shape[0]
-anomaly_count = 50
-anomaly_count_correct = 0
-anomaly_count_wrong = 0
-normal_count_correct = 0
-normal_count_wrong = 0
+    count = df_train.shape[0]
+    anomaly_count = 50
+    anomaly_count_correct = 0
+    anomaly_count_wrong = 0
+    normal_count_correct = 0
+    normal_count_wrong = 0
 #for i in range(0,49):
 #    if list(df_train['anomaly_score'])[i] == -1:
 #        anomaly_count_correct += 1
 #    else:
 #        anomaly_count_wrong += 1
 #accuracy_a = 100*(anomaly_count_correct/anomaly_count)
-for i in range(0,(df_train.shape[0]-1)):
-    if list(df_train['anomaly_score'])[i] == 1:
-        normal_count_correct += 1
-    else:
-        normal_count_wrong += 1
-accuracy_n = 100*(normal_count_correct/(count-50))
+    for i in range(0,(df_train.shape[0]-1)):
+        if list(df_train['anomaly_score'])[i] == 1:
+            normal_count_correct += 1
+        else:
+            normal_count_wrong += 1
+    accuracy_n = 100*(normal_count_correct/(count-50))
 #print("Accuracy of the model(only_anomaly): ", accuracy_a)
-print("Accuracy of the model(only_normal): ", accuracy_n)
+    print("Accuracy of the model(only_normal): ", accuracy_n)
 #print("Anomaly Count_a: " + anomaly_count_wrong)
-print("Anomaly Count_n: " + normal_count_wrong)
+    print("Anomaly Count_n: " + normal_count_wrong)
 
 ##df_test
 #df_dict2 = json.loads(dic)
@@ -144,6 +128,19 @@ print("Anomaly Count_n: " + normal_count_wrong)
 #        print("ok")
 
 
+    testData = mycol.insert_one(dic)
+    print(testData)
+
+
+def on_publish(client, userdata, mid):
+    print("mid: "+str(mid))
+
+
+#connection setting
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+client.on_publish = on_publish
 
 #set connection info
 client.connect("120.126.18.132", 1883)
