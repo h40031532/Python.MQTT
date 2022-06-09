@@ -57,7 +57,7 @@ def on_message(client, userdata, msg):
 #df_dict = json.loads(mycol)
 
 #df_train = pd.DataFrame(list(mycol.find()))
-#df_train = pd.DataFrame(list(df_dict), columns=['BatteryLevel',"RSSI","Mem"])
+#df_train = pd.DataFrame(list(df_dict), columns=['BatteryLevel','RSSI','Mem'])
 #df_train = pd.DataFrame.from_dict(df_dict)
 #df_train.info()
 #df_train.head()
@@ -68,14 +68,17 @@ def on_message(client, userdata, msg):
 #training model
     random_state = np.random.RandomState(42)
     model=IsolationForest(n_estimators=100,max_samples='auto',contamination=float(0.2),random_state=random_state)
-    model.fit(df_train[['BatteryLevel','RSSI','Mem']])
+    model.fit(df_train['BatteryLevel','RSSI','Mem'])
+    #model.fit(df_train[['BatteryLevel','RSSI','Mem']])
     print(model.get_params())
 
 #Train increase score + Anomaly data
 #for i in range(0,49):
 #    df_train.loc[i,'BatteryLevel']=200
-    df_train['scores'] = model.decision_function(df_train[['BatteryLevel',"RSSI","Mem"]])
-    df_train['anomaly_score'] = model.predict(df_train[['BatteryLevel',"RSSI","Mem"]])
+    df_train['scores'] = model.decision_function(df_train['BatteryLevel','RSSI','Mem'])
+    df_train['anomaly_score'] = model.predict(df_train['BatteryLevel','RSSI','Mem'])
+    #df_train['scores'] = model.decision_function(df_train[['BatteryLevel','RSSI','Mem']])
+    #df_train['anomaly_score'] = model.predict(df_train[['BatteryLevel','RSSI','Mem']])
 #df_test[df_train['anomaly_score']==-1].head(50)
 
 #TrainResult
