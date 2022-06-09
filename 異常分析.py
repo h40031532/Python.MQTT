@@ -115,27 +115,27 @@ print("Accuracy of the model(only_normal): ", accuracy_n)
 print("Anomaly Count_a: " + anomaly_count_wrong)
 print("Anomaly Count_n: " + normal_count_wrong)
 
-#df_test
-df_dict2 = json.loads(dic)
-df_test = pd.DataFrame.from_dict(df_dict2)
+##df_test
+#df_dict2 = json.loads(dic)
+#df_test = pd.DataFrame.from_dict(df_dict2)
 
-#time
-import time
+##time
+#import time
 
-def sleeptime(hour,min,sec):
-    return hour*3600 + min*60 + sec
+#def sleeptime(hour,min,sec):
+#    return hour*3600 + min*60 + sec
 
-second = sleeptime(0,0,10)
-i = 0
-while i < 360:
-    time.sleep(second)
-    i+=1
-    #Test increase score
-    df_test['scores'] = model.decision_function(df_test[['BatteryLevel',"RSSI","Mem"]])
-    df_test['anomaly_score'] = model.predict(df_test[['BatteryLevel',"RSSI","Mem"]])
-    #df_test[df_test['anomaly_score']==-1].head(50)
-    #TestResult
-    if (list(df_test['anomaly_score']).count(-1) == 1):
-        print("anomaly value")
-    else:
-        print("ok")
+#second = sleeptime(0,0,10)
+#i = 0
+#while i < 360:
+#    time.sleep(second)
+#    i+=1
+#    #Test increase score
+#    df_test['scores'] = model.decision_function(df_test[['BatteryLevel',"RSSI","Mem"]])
+#    df_test['anomaly_score'] = model.predict(df_test[['BatteryLevel',"RSSI","Mem"]])
+#    #df_test[df_test['anomaly_score']==-1].head(50)
+#    #TestResult
+#    if (list(df_test['anomaly_score']).count(-1) == 1):
+#        print("anomaly value")
+#    else:
+#        print("ok")
