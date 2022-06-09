@@ -30,8 +30,8 @@ def on_message(client, userdata, msg):
     test_df.insert(0,column="ReceiveTime",value=receiveTime)
     print(test_df)
     
-    mydata = {'receiveTime' : receiveTime, 'value' : dic}
-    print(mydata)
+    #mydata = {'receiveTime' : receiveTime, 'value' : dic}
+    #print(mydata)
    
     
     mongo_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
