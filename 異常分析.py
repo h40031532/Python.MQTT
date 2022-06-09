@@ -30,9 +30,9 @@ def on_message(client, userdata, msg):
     receiveTime = str(datetime.datetime.now())
     
     df2=pd.DataFrame()
-    test_df=df2.append(dic,ignore_index=True)
-    test_df.insert(0,column="ReceiveTime",value=receiveTime)
-    print(test_df)
+    df_train=df2.append(dic,ignore_index=True)
+    df_train.insert(0,column="ReceiveTime",value=receiveTime)
+    print(df_train)
     
     #mydata = {'receiveTime' : receiveTime, 'value' : dic}
     #print(mydata)
@@ -45,7 +45,7 @@ def on_message(client, userdata, msg):
     mycol = db["testMongoCol"]
     collst = db.list_collection_names()
     
-    df_train = pd.DataFrame(list(mycol.find()))
+    #df_train = pd.DataFrame(list(mycol.find()))
     
     
 ##Anomaly Detection
@@ -68,7 +68,7 @@ def on_message(client, userdata, msg):
 #training model
     random_state = np.random.RandomState(42)
     model=IsolationForest(n_estimators=100,max_samples='auto',contamination=float(0.2),random_state=random_state)
-    model.fit(df_train[['BatteryLevel',"RSSI","Mem"]])
+    model.fit(df_train[['BatteryLevel','RSSI','Mem']])
     print(model.get_params())
 
 #Train increase score + Anomaly data
