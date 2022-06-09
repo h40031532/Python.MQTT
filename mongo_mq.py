@@ -28,7 +28,8 @@ def on_message(client, userdata, msg):
     df2=pd.DataFrame()
     test_df=df2.append(dic,ignore_index=True)
     test_df.insert(0,column="ReceiveTime",value=receiveTime)
-    print(test_df)
+    print(test_df.head())
+    #print(test_df)
     
     mydata = {'receiveTime' : receiveTime, 'value' : dic}
     print(mydata)
