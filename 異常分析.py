@@ -6,6 +6,9 @@ import pymongo
 import pandas as pd
 import numpy as np
 
+import seaborn as sns
+from sklearn.ensemble import IsolationForest
+
 
 ##MQTT Connection
 
@@ -55,28 +58,25 @@ client.on_connect = on_connect
 client.on_message = on_message
 client.on_publish = on_publish
 
-#set connection info
-client.connect("120.126.18.132", 1883)
-client.loop_forever()
 
 
 
 ##Anomaly Detection
 
-import numpy as np
-import pandas as pd
-import seaborn as sns
-from sklearn.ensemble import IsolationForest
+#import numpy as np
+#import pandas as pd
+#import seaborn as sns
+#from sklearn.ensemble import IsolationForest
 #df_dict = json.loads(mycol)
 
 df_train = pd.DataFrame(list(mycol.find()))
 #df_train = pd.DataFrame(list(df_dict), columns=['BatteryLevel',"RSSI","Mem"])
 #df_train = pd.DataFrame.from_dict(df_dict)
-df_train.info()
-df_train.head()
+#df_train.info()
+#df_train.head()
     
 #boxplot
-sns.boxplot(df_train['BatteryLevel'])
+#sns.boxplot(df_train['BatteryLevel'])
 
 #training model
 random_state = np.random.RandomState(42)
@@ -85,8 +85,8 @@ model.fit(df_train[['BatteryLevel',"RSSI","Mem"]])
 print(model.get_params())
 
 #Train increase score + Anomaly data
-for i in range(0,49):
-    df_train.loc[i,'BatteryLevel']=200
+#for i in range(0,49):
+#    df_train.loc[i,'BatteryLevel']=200
 df_train['scores'] = model.decision_function(df_train[['BatteryLevel',"RSSI","Mem"]])
 df_train['anomaly_score'] = model.predict(df_train[['BatteryLevel',"RSSI","Mem"]])
 #df_test[df_train['anomaly_score']==-1].head(50)
@@ -98,21 +98,21 @@ anomaly_count_correct = 0
 anomaly_count_wrong = 0
 normal_count_correct = 0
 normal_count_wrong = 0
-for i in range(0,49):
-    if list(df_train['anomaly_score'])[i] == -1:
-        anomaly_count_correct += 1
-    else:
-        anomaly_count_wrong += 1
-accuracy_a = 100*(anomaly_count_correct/anomaly_count)
-for i in range(50,df_train.shape[0]):
+#for i in range(0,49):
+#    if list(df_train['anomaly_score'])[i] == -1:
+#        anomaly_count_correct += 1
+#    else:
+#        anomaly_count_wrong += 1
+#accuracy_a = 100*(anomaly_count_correct/anomaly_count)
+for i in range(0,(df_train.shape[0]-1)):
     if list(df_train['anomaly_score'])[i] == 1:
         normal_count_correct += 1
     else:
         normal_count_wrong += 1
 accuracy_n = 100*(normal_count_correct/(count-50))
-print("Accuracy of the model(only_anomaly): ", accuracy_a)
+#print("Accuracy of the model(only_anomaly): ", accuracy_a)
 print("Accuracy of the model(only_normal): ", accuracy_n)
-print("Anomaly Count_a: " + anomaly_count_wrong)
+#print("Anomaly Count_a: " + anomaly_count_wrong)
 print("Anomaly Count_n: " + normal_count_wrong)
 
 ##df_test
@@ -139,3 +139,9 @@ print("Anomaly Count_n: " + normal_count_wrong)
 #        print("anomaly value")
 #    else:
 #        print("ok")
+
+
+
+#set connection info
+client.connect("120.126.18.132", 1883)
+client.loop_forever()
