@@ -5,6 +5,7 @@ import sys
 import pymongo
 import pandas as pd
 import numpy as np
+import ast
 from pymongo import MongoClient
 
 import seaborn as sns
@@ -25,12 +26,12 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     
     message = str(msg.payload.decode('utf-8'))
-    dic=eval(message)
+    dic=ast.literal_eval(message)
     
     receiveTime = str(datetime.datetime.now())
     
-    df2=pd.DataFrame(["SN","Time","MAC","SSID","IP","RSSI","BatteryLevel","isCharging","Mem"])
-    df_train=df2.append(dic,ignore_index=True)
+    df0=pd.DataFrame.from_dict(dic,orient='index')
+    df_train=df0.append(dic,ignore_index=True)
     df_train.insert(0,column="ReceiveTime",value=receiveTime)
     print(df_train)
     
@@ -46,6 +47,13 @@ def on_message(client, userdata, msg):
     collst = db.list_collection_names()
     
     #df_train = pd.DataFrame(list(mycol.find()))
+    
+#Read the message every 10 seconds
+    
+def time1():
+    on_message()
+    time.sleep(10)
+    
     
     
 ##Anomaly Detection
