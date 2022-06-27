@@ -91,9 +91,9 @@ def time1():
 
 #TrainResult
     count = df_train.shape[0]
-    anomaly_count = 50
-    anomaly_count_correct = 0
-    anomaly_count_wrong = 0
+#    anomaly_count = 50
+#    anomaly_count_correct = 0
+#    anomaly_count_wrong = 0
     normal_count_correct = 0
     normal_count_wrong = 0
 #for i in range(0,49):
@@ -107,7 +107,7 @@ def time1():
             normal_count_correct += 1
         else:
             normal_count_wrong += 1
-    accuracy_n = 100*(normal_count_correct/(count-50))
+    accuracy_n = 100*(normal_count_correct/count)
 #print("Accuracy of the model(only_anomaly): ", accuracy_a)
     print("Accuracy of the model(only_normal): ", accuracy_n)
 #print("Anomaly Count_a: " + anomaly_count_wrong)
